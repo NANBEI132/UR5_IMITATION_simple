@@ -1,0 +1,20 @@
+<launch>
+  <!-- 启动UR5仿真 -->
+  <include file="$(find ur5_imitation)/launch/ur5_gazebo.launch"/>
+  
+  <!-- 主从遥操作节点 -->
+  <node name="leader_follower_teleop" pkg="ur5_imitation" 
+        type="leader_follower_teleop.py" output="screen">
+    <param name="leader_topic" value="/leader/joint_states"/>
+    <param name="control_rate" value="100"/>
+    <param name="position_scale" value="1.0"/>
+  </node>
+  
+  <!-- 数据记录节点 -->
+  <node name="data_recorder" pkg="ur5_imitation" 
+        type="data_recorder.py" output="screen">
+    <param name="save_dir" value="$(find ur5_imitation)/demonstrations"/>
+    <param name="frequency" value="50"/>
+    <param name="use_camera" value="false"/>
+  </node>
+</launch>

@@ -1,0 +1,92 @@
+# UR5 Imitation Learning - Training Configuration
+
+# 数据配置
+data:
+  demo_dir: "./demonstrations"
+  train_split: 0.9
+  val_split: 0.1
+  use_camera: false
+  use_velocity: false  # true: 预测速度, false: 预测位置
+
+# 模型配置
+model:
+  type: "feedforward"  # "feedforward" 或 "lstm"
+  
+  # 前馈网络配置
+  feedforward:
+    state_dim: 6
+    action_dim: 6
+    hidden_dims: [256, 256]
+    dropout: 0.1
+  
+  # LSTM网络配置
+  lstm:
+    state_dim: 6
+    action_dim: 6
+    hidden_dim: 256
+    num_layers: 2
+    sequence_length: 10
+
+# 训练配置
+training:
+  batch_size: 64
+  num_epochs: 200
+  learning_rate: 0.001
+  lr_decay_steps: 50
+  lr_decay_rate: 0.5
+  weight_decay: 0.0001
+  gradient_clip: 1.0
+  
+  # 早停
+  early_stopping:
+    enabled: true
+    patience: 20
+    min_delta: 0.0001
+
+# 数据增强
+augmentation:
+  enabled: true
+  gaussian_noise:
+    enabled: true
+    std: 0.01
+    prob: 0.3
+  
+  temporal_shift:
+    enabled: false
+    max_shift: 2
+
+# 评估配置
+evaluation:
+  val_frequency: 5  # 每5个epoch评估一次
+  save_best: true
+  metrics:
+    - "mse"
+    - "mae"
+    - "per_joint_error"
+
+# 可视化
+visualization:
+  plot_training: true
+  plot_frequency: 10
+  save_plots: true
+  plot_dir: "./plots"
+
+# 保存配置
+save:
+  model_dir: "./models"
+  checkpoint_frequency: 10
+  save_optimizer: true
+  save_config: true
+
+# 日志配置
+logging:
+  level: "INFO"  # "DEBUG", "INFO", "WARNING", "ERROR"
+  log_file: "./training.log"
+  tensorboard: false
+  wandb: false
+
+# 硬件配置
+hardware:
+  device: "auto"  # "cpu", "cuda", "auto"
+  num_workers: 4
+  pin_memory: true
