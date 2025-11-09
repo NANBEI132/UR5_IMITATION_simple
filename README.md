@@ -680,8 +680,4 @@ minimize L(π) = E[||π(s) - a||²]
 - OpenAI Spinning Up in Deep RL
 - CS294: Deep Reinforcement Learning (Berkeley)
 
----
 
-**希望这个解释帮助你理解了模仿学习的原理！** 🎓
-
-有任何问题随时问我！
