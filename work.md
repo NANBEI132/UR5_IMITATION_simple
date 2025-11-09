@@ -25,7 +25,11 @@
 - PyTorch 1.8+
 - CUDA (推荐，用于GPU加速)
 ```
+先有ur5相关的包：cd $HOME/catkin_ws/src
 
+# retrieve the sources (replace '$ROS_DISTRO' with the ROS version you are using)
+git clone -b $ROS_DISTRO-devel https://github.com/ros-industrial/universal_robot.git
+，然后将本仓库的文件，克隆在和ur5包同一文件路径下，然后编译。
 ### 三步使用
 
 ```bash
